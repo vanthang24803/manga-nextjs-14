@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Pagination } from "@/components/pagination";
 import { ListCategories } from "@/components/list-categories";
+import { ChevronRight } from "lucide-react";
 
 export default function Categories({ params }) {
   const [page, setPage] = useState(1);
@@ -50,11 +51,18 @@ export default function Categories({ params }) {
   return (
     <main className="flex flex-col space-y-6 md:space-y-8 lg:space-y-10 my-4 md:my-8 lg:my-12 px-4 py-2">
       <div className="flex flex-col">
+        <div className="flex items-center space-x-3 text-sm font-medium hover:cursor-pointer text-blue-800">
+          <span className="hover:underline" onClick={() => router.push("/")}>
+            Trang chủ
+          </span>
+          <ChevronRight className="w-4 h-4 text-neutral-400" />
+          <span className="hover:underline">Thể loại</span>
+        </div>
         <h3 className="uppercase text-[#2980b9] text-[20px] font-medium my-4">
           Tìm Truyện
         </h3>
         <div className="flex justify-between space-x-6">
-          <div className="grid md:grid-cols-4 grid-col-2 gap-4 lg:w-2/3 w-full">
+          <div className="grid md:grid-cols-4 grid-cols-2 gap-4 lg:w-2/3 w-full">
             {data.length > 0 ? (
               <>
                 {data.map((item, index) => {

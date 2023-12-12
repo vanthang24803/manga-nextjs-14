@@ -54,7 +54,7 @@ Card.Skeleton = function CardLoading() {
           return (
             <Skeleton
               key={index}
-              className=" w-[160px] lg:h-[200px] h-[230px] bg-neutral-200"
+              className="md:w-[160px] w-[180px] lg:h-[200px] h-[230px] bg-neutral-200"
             />
           );
         })}

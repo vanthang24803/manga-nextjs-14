@@ -4,9 +4,9 @@ import axios from "axios";
 import { Card } from "@/components/card";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { List } from "lucide-react";
 import { ListItems } from "@/components/list-items";
 import { Pagination } from "@/components/pagination";
+import { Slider } from "@/components/slider";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -42,10 +42,17 @@ export default function Home() {
     <main className="flex flex-col space-y-6 md:space-y-8 lg:space-y-10 my-4 md:my-8 lg:my-12 px-4 py-2">
       <div className="flex flex-col">
         <h3 className="uppercase text-[#2980b9] text-[20px] font-medium my-4">
+          Truyện Hot
+        </h3>
+
+        {items.length > 0 ? <Slider data={items} /> : <Slider.Skeleton />}
+      </div>
+      <div className="flex flex-col">
+        <h3 className="uppercase text-[#2980b9] text-[20px] font-medium my-4">
           Truyện Mới Cập Nhật
         </h3>
-        <div className="flex justify-between space-x-6">
-          <div className="grid md:grid-cols-4 grid-col-2 gap-4 lg:w-2/3 w-full">
+        <div className="flex justify-between space-x-6 w-full">
+          <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2 lg:w-2/3 w-full">
             {data.length > 0 ? (
               <>
                 {data.map((item, index) => {
