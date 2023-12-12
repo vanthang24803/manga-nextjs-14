@@ -3,6 +3,7 @@
 
 import { Eye, MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
 
 export const Card = ({ item }) => {
   const router = useRouter();
@@ -41,5 +42,22 @@ export const Card = ({ item }) => {
         </span>
       </div>
     </div>
+  );
+};
+
+Card.Skeleton = function CardLoading() {
+  return (
+   <>
+      {Array(20)
+        .fill(0)
+        .map((index) => {
+          return (
+            <Skeleton
+              key={index}
+              className=" w-[160px] lg:h-[200px] h-[230px] bg-neutral-200"
+            />
+          );
+        })}
+    </>
   );
 };

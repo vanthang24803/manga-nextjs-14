@@ -19,7 +19,7 @@ export function Navigation({ categories }) {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/manga-112" legacyBehavior passHref>
+          <Link href="/tim-truyen/manga-112" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Manga
             </NavigationMenuLink>
@@ -34,7 +34,7 @@ export function Navigation({ categories }) {
                 <ListItem
                   key={component.name}
                   title={component.name}
-                  href={component.href.split("/").pop()}
+                  href={`/tim-truyen/${component.href.split("/").pop()}`}
                 />
               ))}
             </ul>
