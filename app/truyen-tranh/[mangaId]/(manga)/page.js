@@ -5,7 +5,7 @@ import Link from "next/link";
 import getManga from "@/actions/get-list-manga";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Chapter } from "./_components/chapter";
+import { Chapter } from "../_components/chapter";
 import { Separator } from "@/components/ui/separator";
 
 const Detail = async ({ params }) => {
