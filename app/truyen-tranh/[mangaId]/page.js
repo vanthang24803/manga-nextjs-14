@@ -5,6 +5,8 @@ import Link from "next/link";
 import getManga from "@/actions/get-list-manga";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Chapter } from "./_components/chapter";
+import { Separator } from "@/components/ui/separator";
 
 const Detail = async ({ params }) => {
   const data = await getDetailManga(params.mangaId);
@@ -83,6 +85,24 @@ const Detail = async ({ params }) => {
           <Link href={`${lasted.href.split(`${process.env.API_URL}/v1`)[1]}`}>
             <Button variant="destructive">Đọc mới nhất</Button>
           </Link>
+        </div>
+
+        <div className="mt-4 flex flex-col space-y-2">
+          <div className="flex flex-col space-y-1">
+            <h4 className="uppercase text-[#2980b9]  font-medium">Nội dung</h4>
+            <Separator />
+          </div>
+          <p className="text-sm ">{data.content}</p>
+        </div>
+
+        <div className="mt-4 flex flex-col space-y-2">
+          <div className="flex flex-col space-y-1">
+            <h4 className="uppercase text-[#2980b9]  font-medium">
+              Danh sách chương
+            </h4>
+            <Separator />
+          </div>
+          <Chapter chapters={data.chapters} />
         </div>
       </div>
       <div className="w-1/3 hidden lg:flex flex-col space-y-4 border border-neutral-200 p-4 ">
