@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import getDetailManga from "@/actions/get-detail-manga";
 import Link from "next/link";
-import getManga from "@/actions/get-list-manga";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Chapter } from "../_components/chapter";
+import getManga from "@/actions/get-list-manga";
+import getDetailManga from "@/actions/get-detail-manga";
 import { Separator } from "@/components/ui/separator";
 
 const Detail = async ({ params }) => {
