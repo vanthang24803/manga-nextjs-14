@@ -39,7 +39,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="flex flex-col space-y-6 md:space-y-8 lg:space-y-10 my-4 md:my-8 lg:my-12 px-4 py-2">
+    <main className="flex flex-col space-y-6 md:space-y-8 lg:space-y-10 px-4 py-2">
       <div className="flex flex-col">
         <h3 className="uppercase text-[#2980b9] text-[20px] font-medium my-4">
           Truyện Hot

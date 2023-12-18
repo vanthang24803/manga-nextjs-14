@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
+import { useRouter } from "next/navigation";
 
 export const Slider = ({ data }) => {
   const [start, setStart] = useState(0);
@@ -58,6 +61,8 @@ export const Slider = ({ data }) => {
     }
   };
 
+  const router = useRouter();
+
   return (
     <div className="relative w-full">
       <div
@@ -68,7 +73,13 @@ export const Slider = ({ data }) => {
       </div>
       <div className="flex overflow-x-hidden relative">
         {data.slice(start, end).map((item, index) => (
-          <div key={index} className="lg:w-1/5 md:w-1/4 w-1/2">
+          <div
+            key={index}
+            className="lg:w-1/5 md:w-1/4 w-1/2"
+            onClick={() =>
+              router.push(`/truyen-tranh/${item.href.split("/").pop()}`)
+            }
+          >
             <img
               src={item.thumbnail}
               key={index}

@@ -16,7 +16,7 @@ const Detail = async ({ params }) => {
   const first = data.chapters[data.chapters.length - 1];
 
   return (
-    <div className="flex justify-between space-x-6 w-full my-20 px-4">
+    <div className="flex justify-between space-x-6 w-full my-4 px-4">
       <div className="flex flex-col lg:w-2/3 w-full">
         <div className="flex items-center space-x-3 text-sm font-medium hover:cursor-pointer ">
           <Link href="/" className="hover:text-blue-800">

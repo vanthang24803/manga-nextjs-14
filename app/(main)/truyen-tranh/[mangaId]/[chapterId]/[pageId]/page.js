@@ -15,7 +15,7 @@ const Chapter = async ({ params }) => {
   const idNext = response.nextChapter.split("/").pop();
 
   return (
-    <div className="flex w-full my-16 flex-col space-y-4 p-4">
+    <div className="flex w-full my-4 flex-col space-y-4 p-4">
       <div className="flex flex-col space-y-3">
         <div className="flex items-center space-x-3 text-sm font-medium hover:cursor-pointer overflow-auto">
           <Link href="/" className="hover:text-blue-800">
@@ -27,9 +27,9 @@ const Chapter = async ({ params }) => {
           </Link>
           <ChevronRight className="w-4 h-4 text-neutral-400 hidden md:block" />
           {/* <Link href={`/truyen-tranh/${params.mangaId}`}> */}
-            <span className="hover:text-blue-800 hidden md:block">
-              {response.name}
-            </span>
+          <span className="hover:text-blue-800 hidden md:block">
+            {response.name}
+          </span>
           {/* </Link> */}
           <ChevronRight className="w-4 h-4 text-neutral-400 hidden md:block" />
           <span className="hover:text-blue-800 hidden md:block">

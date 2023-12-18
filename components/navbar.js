@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/navigation";
 import { useEffect, useState } from "react";
 import { MobileMenu } from "@/components/mobile-menu";
+import { SearchPage } from "@/components/search";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const [categories, setCategories] = useState([]);
@@ -24,6 +26,8 @@ export const Navbar = () => {
     fetchData();
   }, []);
 
+  const router = useRouter();
+
   return (
     <nav className="fixed top-0 w-full h-14 px-4 border-b shadow-sm dark:bg-slate-700 bg-white flex items-center z-50">
       <div className="md:max-w-screen-lg mx-auto flex items-center w-full justify-between">
@@ -35,7 +39,10 @@ export const Navbar = () => {
           <Navigation categories={categories} />
         </div>
         <div className="flex items-center space-x-4">
-          <Button>Login</Button>
+          <SearchPage />
+          <Button
+            onClick= {() => router.push("/login")}
+          >Login</Button>
           <MobileMenu />
         </div>
       </div>
