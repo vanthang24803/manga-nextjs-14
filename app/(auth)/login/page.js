@@ -5,7 +5,7 @@ import * as z from "zod";
 import { signIn } from "next-auth/react";
 import { Logo } from "@/components/logo";
 import { ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ const formSchema = z.object({
 
 export default function Login() {
   const router = useRouter();
+
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -69,7 +70,7 @@ export default function Login() {
             className="w-4 h-4 object-fill"
             loading="lazy"
           />
-          <span className="text-neutral-700/90">Contine with Google</span>
+          <span className="text-neutral-700/90">Continue with Google</span>
         </div>
         <ArrowRight className="w-4 h-4 text-neutral-600/90 group-hover:translate-x-2 transition-all ease-in-out" />
       </Button>

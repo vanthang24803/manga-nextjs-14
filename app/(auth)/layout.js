@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "../(main)/globals.css";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +21,11 @@ export const metadata = {
   ],
 };
 
-export default function AuthLayout({ children }) {
+export default async function AuthLayout({ children }) {
+  const currentUser = await getServerSession(authOptions);
+  if (currentUser) {
+    redirect("/");
+  }
   return (
     <html lang="en">
       <body className={inter.className}>
