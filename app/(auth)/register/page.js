@@ -34,7 +34,6 @@ export default function Register() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       setLoading(true);
       const response = await axios.post(`/api/register`, data, {

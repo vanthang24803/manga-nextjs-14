@@ -30,7 +30,7 @@ export default async function RootLayout({ children }) {
       <body className={inter.className}>
         <Navbar currentUser={currentUser} />
         <main className="my-14 md:max-w-screen-lg mx-auto">
-          <Noti />
+          <Noti />  
           <>{children}</>
         </main>
       </body>
