@@ -1,14 +1,52 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import * as z from "zod";
+import { signIn } from "next-auth/react";
 import { Logo } from "@/components/logo";
+import { ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { FormControl, FormField, FormItem } from "@/components/ui/form";
+
+const formSchema = z.object({
+  email: z.string().min(1),
+  password: z.string().min(1),
+});
 
 export default function Login() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    })
+      .then((callback) => {
+        if (callback?.error) {
+          console.log(callback.error);
+        }
+
+        if (callback?.ok) {
+          router.push("/");
+        }
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <div className="md:w-[400px] w-[360px] py-4 px-6 bg-white/90 rounded-lg  flex flex-col space-y-5">
       <Logo />
@@ -36,18 +74,46 @@ export default function Login() {
         <ArrowRight className="w-4 h-4 text-neutral-600/90 group-hover:translate-x-2 transition-all ease-in-out" />
       </Button>
 
-      <form className="flex flex-col space-y-3">
-        <div className="flex flex-col space-y-1">
-          <span className="font-medium text-sm">Email address</span>
-          <Input />
-        </div>
-        <div className="flex flex-col space-y-1">
-          <span className="font-medium text-sm">Password</span>
-          <Input type="password" />
-        </div>
+      <FormProvider {...form}>
+        <form
+          className="flex flex-col space-y-3"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex flex-col space-y-1">
+                    <span className="font-medium text-sm">Email address</span>
+                    <Input {...field} />
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
-        <Button>Submit</Button>
-      </form>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex flex-col space-y-1">
+                    <span className="font-medium text-sm">Password</span>
+                    <Input type="password" {...field} />
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" disabled={loading}>
+            Submit
+          </Button>
+        </form>
+      </FormProvider>
 
       <div className="flex items-center space-x-2 text-sm">
         <span className="mt-4 text-neutral-600">No account?</span>

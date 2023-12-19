@@ -8,8 +8,9 @@ import { useEffect, useState } from "react";
 import { MobileMenu } from "@/components/mobile-menu";
 import { SearchPage } from "@/components/search";
 import { useRouter } from "next/navigation";
+import { Profile } from "./profile";
 
-export const Navbar = () => {
+export const Navbar = ({ currentUser }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -38,11 +39,14 @@ export const Navbar = () => {
           <Logo />
           <Navigation categories={categories} />
         </div>
+
         <div className="flex items-center space-x-4">
           <SearchPage />
-          <Button
-            onClick= {() => router.push("/login")}
-          >Login</Button>
+          {currentUser ? (
+            <Profile currentUser={currentUser.user} />
+          ) : (
+            <Button onClick={() => router.push("/login")}>Login</Button>
+          )}
           <MobileMenu />
         </div>
       </div>
