@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   email: z.string().min(1),
@@ -38,7 +39,7 @@ export default function Login() {
     })
       .then((callback) => {
         if (callback?.error) {
-          console.log(callback.error);
+          toast.error(callback.error);
         }
 
         if (callback?.ok) {

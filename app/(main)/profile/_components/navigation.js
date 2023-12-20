@@ -37,11 +37,17 @@ export const Navigation = ({ data }) => {
             />
           </div>
         </div>
-        <Button size="icon">
+        <Button size="icon"
+          onClick={() => setCurrentTab("settings")}
+        >
           <Settings />
         </Button>
       </nav>
-      {currentTab === "information" && <Information data={data} />}
+      {currentTab === "information" && (
+        <Information data={data}/>
+      )}
+
+      {currentTab === "settings" && <>Setting</>}
     </div>
   );
 };

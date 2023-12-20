@@ -28,8 +28,12 @@ export async function PATCH(req) {
     }
 
     const updateUser = await db.user.update({
+      where: {
+        email: currentUser.user.email,
+      },
       data: {
         email,
+        name : `${firstName} ${lastName}`,
         firstName,
         lastName,
       },

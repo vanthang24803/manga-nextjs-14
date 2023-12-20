@@ -3,7 +3,6 @@
 import * as z from "zod";
 import axios from "axios";
 import { useState } from "react";
-import { Logo } from "@/components/logo";
 import { useRouter } from "next/navigation";
 import { PencilLine, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -11,19 +10,16 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   email: z.string().min(1),
-  password: z.string().min(1),
 });
 
 export const Information = ({ data }) => {
   const [setting, setSetting] = useState(false);
-
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -33,6 +29,9 @@ export const Information = ({ data }) => {
       lastName: data.lastName,
     },
   });
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
     try {
@@ -45,8 +44,11 @@ export const Information = ({ data }) => {
 
       if (response.status == 200) {
         router.refresh();
+        toast.success("Cập nhật thông tin thành công!");
         setLoading(false);
+        setSetting(false);
       } else {
+        toast.success("Cập nhật thông tin thất bại!");
         setLoading(false);
       }
     } catch (error) {
@@ -119,7 +121,9 @@ export const Information = ({ data }) => {
                 )}
               />
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={loading}>
+                Submit
+              </Button>
             </form>
           </FormProvider>
         </>

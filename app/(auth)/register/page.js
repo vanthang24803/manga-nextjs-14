@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   firstName: z.string().min(1),
@@ -43,9 +44,11 @@ export default function Register() {
       });
 
       if (response.status == 200) {
+        toast.success("Thành công");
         router.push("/login");
         setLoading(false);
       } else {
+        toast.error("Thất bại");
         setLoading(false);
       }
     } catch (error) {

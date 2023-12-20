@@ -4,6 +4,7 @@ import "../(main)/globals.css";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import { ToastProvider } from "@/components/provider/toast-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default async function AuthLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <main className="h-full flex items-center justify-center bg-[url('https://images5.alphacoders.com/133/1339874.png')] bg-no-repeat bg-center bg-cover">
+          <ToastProvider />
           {children}
         </main>
       </body>
