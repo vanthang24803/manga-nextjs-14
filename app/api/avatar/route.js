@@ -5,9 +5,9 @@ import { db } from "@/lib/db";
 
 export async function PATCH(req) {
   try {
-    const { email, firstName, lastName } = await req.json();
+    const { url } = await req.json();
 
-    if (!email || !firstName || !lastName) {
+    if (!url) {
       return new NextResponse("Missing data", { status: 400 });
     }
 
@@ -32,39 +32,11 @@ export async function PATCH(req) {
         email: currentUser.user.email,
       },
       data: {
-        email,
-        name: `${firstName} ${lastName}`,
-        firstName,
-        lastName,
+        image: url,
       },
     });
 
     return NextResponse.json(updateUser, { status: 200 });
-  } catch (error) {
-    console.log(error);
-    return new NextResponse("Invalid Server", { status: 500 });
-  }
-}
-
-export async function GET(req) {
-  try {
-    const currentUser = await getServerSession(authOptions);
-
-    if (!currentUser) {
-      return new NextResponse("Authorization", { status: 401 });
-    }
-
-    const user = await db.user.findUnique({
-      where: {
-        email: currentUser.user.email,
-      },
-    });
-
-    if (!user) {
-      return new NextResponse("User not found", { status: 404 });
-    }
-
-    return new NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.log(error);
     return new NextResponse("Invalid Server", { status: 500 });
