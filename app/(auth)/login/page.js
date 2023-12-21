@@ -62,6 +62,7 @@ export default function Login() {
 
       <Button
         variant="outline"
+        onClick={() => signIn("google")}
         className="flex items-center group justify-between px-4"
       >
         <div className="flex items-start space-x-2">

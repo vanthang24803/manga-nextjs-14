@@ -19,6 +19,7 @@ export const Panel = ({ data }) => {
               <img
                 src={data.thumbnail}
                 alt={data.id}
+                loading="lazy"
                 className="w-full max-h-[300px] rounded-md object-cover"
               />
               <div
@@ -33,6 +34,7 @@ export const Panel = ({ data }) => {
               <img
                 src="https://images5.alphacoders.com/133/1339874.png"
                 alt="thumbnail"
+                loading="lazy"
                 className="w-full max-h-[300px] rounded-md object-cover"
               />
               <div
