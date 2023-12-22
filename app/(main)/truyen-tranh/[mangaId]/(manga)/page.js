@@ -76,7 +76,7 @@ const Detail = async ({ params }) => {
           <span>{data.star}</span>
         </div>
         <div className="flex items-center space-x-4 mt-4">
-          <Saved data={data} />
+          <Saved data={data} url={params.mangaId} />
           <span>{data.followers} lượt theo dõi</span>
         </div>
         <div className="flex items-center space-x-4 mt-4">

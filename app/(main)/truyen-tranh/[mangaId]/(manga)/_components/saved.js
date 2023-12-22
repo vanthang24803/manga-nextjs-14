@@ -4,13 +4,14 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 
-export const Saved = ({ data }) => {
+export const Saved = ({ data , url }) => {
+
 
   const dataSend = {
     name: data.name,
     thumbnail: data.thumbnail,
     views: data.views,
-    href: window.location.pathname,
+    href: `/truyen-tranh/${url}`,
   };
 
   const onSubmit = async () => {

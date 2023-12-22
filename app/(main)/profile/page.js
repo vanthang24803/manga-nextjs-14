@@ -37,6 +37,8 @@ export default async function Profile() {
     },
   });
 
+  console.log(user)
+
   return (
     <div className="flex flex-col space-y-4 md:space-y-6 pb-4">
       <Panel data={user} />

@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Settings } from "lucide-react";
 import { Information } from "./information";
 import { MangaSaved } from "./manga-saved";
+import { SettingAccount } from "./setting-account";
 
 export const Navigation = ({ data }) => {
   const [currentTab, setCurrentTab] = useState("information");
@@ -44,9 +45,9 @@ export const Navigation = ({ data }) => {
       </nav>
       {currentTab === "information" && <Information data={data} />}
 
-      {currentTab === "mangaSaved" && <MangaSaved data={data} />}
+      {currentTab === "mangaSaved" && <MangaSaved />}
 
-      {currentTab === "settings" && <>Setting</>}
+      {currentTab === "settings" && <SettingAccount user={data}/>}
     </div>
   );
 };
