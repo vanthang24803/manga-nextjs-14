@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Settings } from "lucide-react";
 import { Information } from "./information";
+import { MangaSaved } from "./manga-saved";
 
 export const Navigation = ({ data }) => {
   const [currentTab, setCurrentTab] = useState("information");
@@ -37,15 +38,13 @@ export const Navigation = ({ data }) => {
             />
           </div>
         </div>
-        <Button size="icon"
-          onClick={() => setCurrentTab("settings")}
-        >
+        <Button size="icon" onClick={() => setCurrentTab("settings")}>
           <Settings />
         </Button>
       </nav>
-      {currentTab === "information" && (
-        <Information data={data}/>
-      )}
+      {currentTab === "information" && <Information data={data} />}
+
+      {currentTab === "mangaSaved" && <MangaSaved data={data} />}
 
       {currentTab === "settings" && <>Setting</>}
     </div>

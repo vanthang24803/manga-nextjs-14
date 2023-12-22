@@ -7,6 +7,7 @@ import { Chapter } from "../_components/chapter";
 import getManga from "@/actions/get-list-manga";
 import getDetailManga from "@/actions/get-detail-manga";
 import { Separator } from "@/components/ui/separator";
+import { Saved } from "./_components/saved";
 
 const Detail = async ({ params }) => {
   const data = await getDetailManga(params.mangaId);
@@ -75,7 +76,7 @@ const Detail = async ({ params }) => {
           <span>{data.star}</span>
         </div>
         <div className="flex items-center space-x-4 mt-4">
-          <Button variant="primary">Follow</Button>
+          <Saved data={data} />
           <span>{data.followers} lượt theo dõi</span>
         </div>
         <div className="flex items-center space-x-4 mt-4">

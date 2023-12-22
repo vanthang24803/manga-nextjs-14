@@ -24,6 +24,7 @@ export const UploadThumbnail = () => {
   const onSubmit = async (data) => {
     data.url = thumbnail;
     try {
+      toast.loading("Vui lòng đợi");
       setLoading(true);
       const response = await axios.patch(`/api/thumbnail`, data, {
         headers: {
@@ -32,12 +33,14 @@ export const UploadThumbnail = () => {
       });
 
       if (response.status == 200) {
+        toast.dismiss();
         modal.onClose();
         router.refresh();
         toast.success("Cập nhật ảnh bìa thành công!");
         setLoading(false);
         setSetting(false);
       } else {
+        toast.dismiss();
         toast.success("Cập nhật ảnh bìa thất bại!");
         setLoading(false);
       }
@@ -86,7 +89,7 @@ export const UploadThumbnail = () => {
                 onClientUploadComplete={(res) => {
                   // Do something with the response
                   setThumbnail(res[0].url);
-                  toast.success("Upload Completed");
+                  toast.success("Tải ảnh lên thành công");
                 }}
                 onUploadError={(error) => {
                   // Do something with the error.

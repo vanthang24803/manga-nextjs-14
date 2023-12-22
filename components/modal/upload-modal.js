@@ -24,6 +24,7 @@ export const UploadModal = () => {
     data.url = avatar;
     try {
       setLoading(true);
+      toast.loading("Vui lòng đợi")
       const response = await axios.patch(`/api/avatar`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -31,12 +32,14 @@ export const UploadModal = () => {
       });
 
       if (response.status == 200) {
+        toast.dismiss();
         modal.onClose();
         router.refresh();
         toast.success("Cập nhật ảnh đại diện thành công!");
         setLoading(false);
         setSetting(false);
       } else {
+        toast.dismiss();
         toast.success("Cập nhật ảnh đại diện thất bại!");
         setLoading(false);
       }
@@ -78,7 +81,8 @@ export const UploadModal = () => {
                 onClientUploadComplete={(res) => {
                   // Do something with the response
                   setAvatar(res[0].url);
-                  toast.success("Upload Completed");
+                  toast.dismiss();
+                  toast.success("Tải lên thành công");
                 }}
                 onUploadError={(error) => {
                   // Do something with the error.

@@ -150,7 +150,7 @@ export const Information = ({ data }) => {
             </div>
             <div className="flex items-center space-x-14">
               <span className="font-medium">Role:</span>
-              <span className="uppercase">admin</span>
+              <span className="uppercase">{data.role}</span>
             </div>
           </div>
         </>

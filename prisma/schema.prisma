@@ -43,19 +43,21 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   firstName     String?
   lastName      String?
   password      String?
   thumbnail     String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  role          Role       @default(USER)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   accounts      Account[]
   sessions      Session[]
+  Wishlist      Wishlist[]
 }
 
 model VerificationRequest {
@@ -67,4 +69,23 @@ model VerificationRequest {
   updatedAt  DateTime @updatedAt
 
   @@unique([identifier, token])
+}
+
+model Wishlist {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  name      String
+  views     String
+  thumbnail String
+  href      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  MEMBERSHIP
+  USER
 }
