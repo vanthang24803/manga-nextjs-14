@@ -38,9 +38,6 @@ export const Chapter = ({ chapters }) => {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow></TableRow>
-      </TableFooter>
     </Table>
   );
 };

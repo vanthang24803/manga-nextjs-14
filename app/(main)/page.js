@@ -44,7 +44,6 @@ export default function Home() {
         <h3 className="uppercase text-[#2980b9] text-[20px] font-medium my-4">
           Truyện Hot
         </h3>
-
         {items.length > 0 ? <Slider data={items} /> : <Slider.Skeleton />}
       </div>
       <div className="flex flex-col">

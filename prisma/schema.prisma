@@ -87,11 +87,13 @@ model Wishlist {
 }
 
 model Comment {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  userId  String
-  user    User   @relation(fields: [userId], references: [id])
-  mangaId String
-  content String
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String
+  authorName String
+  avatar     String
+  user       User   @relation(fields: [userId], references: [id])
+  mangaId    String
+  content    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

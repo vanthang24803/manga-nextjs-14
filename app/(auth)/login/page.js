@@ -43,7 +43,7 @@ export default function Login() {
         }
 
         if (callback?.ok) {
-          router.push("/");
+          router.back();
         }
       })
       .finally(() => setLoading(false));

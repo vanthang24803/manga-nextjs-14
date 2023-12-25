@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 
 export const Saved = ({ data , url }) => {
 
-
   const dataSend = {
     name: data.name,
     thumbnail: data.thumbnail,

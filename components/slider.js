@@ -1,81 +1,40 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-"use client";
+import * as React from "react";
+import Autoplay from "embla-carousel-autoplay"
 
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Skeleton } from "./ui/skeleton";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 
-export const Slider = ({ data }) => {
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(getSlideCount());
-  const slideInterval = 3000;
-
-  function getSlideCount() {
-    if (typeof window !== "undefined") {
-      return window.innerWidth > 1024 ? 5 : window.innerWidth > 640 ? 4 : 2;
-    }
-    return 5;
-  }
-
-  useEffect(() => {
-    const handleResize = () => {
-      setEnd(start + getSlideCount());
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [start]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      handleNext();
-    }, slideInterval);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [start]);
-
-  const handleNext = () => {
-    if (end < data.length) {
-      setStart((prevStart) => prevStart + 1);
-      setEnd((prevEnd) => prevEnd + 1);
-    } else {
-      setStart(0);
-      setEnd(getSlideCount());
-    }
-  };
-
-  const handlePrev = () => {
-    if (start > 0) {
-      setStart((prevStart) => prevStart - 1);
-      setEnd((prevEnd) => prevEnd - 1);
-    } else {
-      setStart(data.length - getSlideCount());
-      setEnd(data.length);
-    }
-  };
-
+export function Slider({ data }) {
   const router = useRouter();
 
   return (
-    <div className="relative w-full">
-      <div
-        className="absolute w-8 h-8 flex items-center justify-center rounded-full bg-white z-10 hover:cursor-pointer top-1/3 lg:top1/2 -left-4 border hover:scale-105"
-        onClick={handlePrev}
-      >
-        <ChevronLeft />
-      </div>
-      <div className="flex overflow-x-hidden relative">
-        {data.slice(start, end).map((item, index) => (
-          <div
+    <Carousel
+      opts={{
+        align: "start",
+        loop: true,
+        
+      }}
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
+      className="w-full"
+    >
+      <CarouselContent>
+        {data.map((item, index) => (
+          <CarouselItem
             key={index}
-            className="lg:w-1/5 md:w-1/4 w-1/2"
+            className="basis-1/2 md:basis-1/4 lg:basis-1/5 relative"
             onClick={() =>
               router.push(`/truyen-tranh/${item.href.split("/").pop()}`)
             }
@@ -85,21 +44,53 @@ export const Slider = ({ data }) => {
               key={index}
               alt={item.name}
               loading="lazy"
-              className="object-cover w-[180px] lg:-[200px] h-[230px] cursor-pointer"
+              className="object-cover w-[180px] lg:-[200px] h-[230px] cursor-pointer rounded-md"
             />
-          </div>
+            <div
+              className="absolute bottom-1 left-6  bg-neutral-700/70 w-[165px] h-10 rounded-md flex items-center justify-center space-y-4 hover:cursor-pointer"
+              onClick={() =>
+                router.push(`/truyen-tranh/${item.href.split("/").pop()}`)
+              }
+            >
+              <span className="text-white text-center text-sm p-1 line-clamp-1">
+                {item.name}
+              </span>
+            </div>
+          </CarouselItem>
         ))}
-      </div>
-      <div
-        className="absolute w-8 h-8 flex items-center justify-center rounded-full bg-white z-10 hover:cursor-pointer top-1/3 lg:top1/2 -right-4 border hover:scale-105"
-        onClick={handleNext}
-      >
-        <ChevronRight />
-      </div>
-    </div>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
   );
-};
+}
 
 Slider.Skeleton = function SliderLoading() {
-  return <Skeleton className="w-full h-[25vh] rounded bg-neutral-200" />;
+  return (
+    <Carousel
+      opts={{
+        align: "start",
+      }}
+      className="w-full"
+    >
+      <CarouselContent>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <CarouselItem
+            key={index}
+            className="basis-1/2 md:basis-1/4 lg:basis-1/6"
+          >
+            <div className="p-1">
+              <Card>
+                <CardContent className="flex aspect-square items-center justify-center p-6">
+                  <span className="text-3xl font-semibold">{index + 1}</span>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  );
 };
