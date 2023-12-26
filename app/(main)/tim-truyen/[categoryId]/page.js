@@ -85,7 +85,7 @@ export default function Category({ params }) {
               <Card.Skeleton />
             )}
           </div>
-          <div className="w-1/3 hidden  lg:flex flex-col space-y-4 border border-neutral-200 p-4 h-[130vh]">
+          <div className="w-1/3 hidden  lg:flex flex-col space-y-4 border border-neutral-200 p-4 h-[150vh]">
             <div
               className="flex flex-col hover:cursor-pointer"
               onClick={() => router.push("/bxh")}

@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ListCategories } from "@/components/list-categories";
 import { ChevronRight } from "lucide-react";
-import { Nav } from "./_components/nav";
+import { Nav } from "../_components/nav";
 
-export default function BXH() {
+export default function BXH({ params }) {
   const [data, setData] = useState([]);
 
   const [categories, setCategories] = useState([]);
@@ -17,7 +17,7 @@ export default function BXH() {
   useEffect(() => {
     const featData = async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/v1/bxh/all`
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/bxh/${params.type}`
       );
 
       if (response.status == 200) {
@@ -57,7 +57,7 @@ export default function BXH() {
           <span className="hover:underline">Thể loại</span>
         </div>
         <h3 className="uppercase text-[#2980b9] text-[20px] font-medium my-4">
-         Bảng xếp hạng
+          Bảng Xếp Hạng Của {params.type}
         </h3>
         <Nav />
         <div className="flex justify-between space-x-6">

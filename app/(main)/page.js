@@ -13,6 +13,7 @@ export default function Home() {
 
   const [data, setData] = useState([]);
   const [items, setItems] = useState([]);
+  const [bxh, setBxh] = useState([]);
 
   useEffect(() => {
     const featData = async () => {
@@ -20,16 +21,36 @@ export default function Home() {
         `${process.env.NEXT_PUBLIC_API_URL}/v1?page=${page}`
       );
 
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/v1?limit=9`
-      );
-
       if (response.status == 200) {
         setData(response.data);
       }
+    };
+
+    featData();
+  }, [page]);
+
+  useEffect(() => {
+    const featData = async () => {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/bxh/all?item=9`
+      );
 
       if (res.status == 200) {
         setItems(res.data);
+      }
+    };
+
+    featData();
+  }, [page]);
+
+  useEffect(() => {
+    const featData = async () => {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/bxh/day?item=9`
+      );
+
+      if (res.status == 200) {
+        setBxh(res.data);
       }
     };
 
@@ -73,11 +94,7 @@ export default function Home() {
               <div className="h-[1px] bg-[#2980b9] w-1/2"></div>
             </div>
 
-            {items.length > 0 ? (
-              <ListItems data={items} />
-            ) : (
-              <ListItems.Skeleton />
-            )}
+            {bxh.length > 0 ? <ListItems data={bxh} /> : <ListItems.Skeleton />}
           </div>
         </div>
 
