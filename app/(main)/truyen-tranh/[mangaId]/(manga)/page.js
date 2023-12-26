@@ -1,10 +1,10 @@
+import { db } from "@/lib/db";
 import { Info } from "./_components/info";
 import { Modal } from "./_components/modal";
 import { getServerSession } from "next-auth";
 import getManga from "@/actions/get-list-manga";
 import getDetailManga from "@/actions/get-detail-manga";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { db } from "@/lib/db";
 
 const Detail = async ({ params }) => {
   const items = await getManga();
@@ -21,7 +21,7 @@ const Detail = async ({ params }) => {
   });
 
   return (
-    <div className="flex justify-between space-x-6 w-full p-4">
+    <div className="flex justify-between space-x-6 w-full px-4 pt-4 pb-16">
       <Info
         data={data}
         url={params.mangaId}

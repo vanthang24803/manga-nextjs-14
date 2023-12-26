@@ -108,7 +108,7 @@ export const Info = ({ data, url, currentUser, comments }) => {
         </div>
         <div className="w-full min-h-[20vh] rounded-md border border-neutral-200 p-4 flex flex-col space-y-6">
           <CommentForm currentUser={currentUser} url={url} />
-          <ListComments comments={comments} />
+          <ListComments comments={comments} currentUser={currentUser} />
         </div>
       </div>
     </div>

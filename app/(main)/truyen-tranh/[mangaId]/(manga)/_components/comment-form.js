@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
 
 const formSchema = z.object({
-  content: z.string().min(1),
+  content: z.string().min(1).max(255),
 });
 
 export const CommentForm = ({ currentUser, url }) => {
