@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Eye, MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "./ui/skeleton";
+import { Eye, MessageSquare } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Card = ({ item }) => {
   const router = useRouter();
@@ -47,7 +47,7 @@ export const Card = ({ item }) => {
 
 Card.Skeleton = function CardLoading() {
   return (
-   <>
+    <>
       {Array(20)
         .fill(0)
         .map((index) => {

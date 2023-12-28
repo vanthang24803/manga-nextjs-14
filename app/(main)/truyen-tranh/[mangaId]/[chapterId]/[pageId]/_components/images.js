@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-export const Images = ({ images }) => {
+export default function Images({ images }) {
   return (
     <div className="flex flex-col w-full items-center justify-center">
       {images.map((item, index) => (
@@ -7,4 +7,4 @@ export const Images = ({ images }) => {
       ))}
     </div>
   );
-};
+}

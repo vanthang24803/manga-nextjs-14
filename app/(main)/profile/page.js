@@ -1,10 +1,10 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Panel } from "./_components/panel";
+import { getServerSession } from "next-auth";
 import { Navigation } from "./_components/navigation";
-import { db } from "@/lib/db";
 import { Separator } from "@/components/ui/separator";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function generateMetadata() {
   const currentUser = await getServerSession(authOptions);
@@ -36,8 +36,6 @@ export default async function Profile() {
       email: currentUser.user.email,
     },
   });
-
-  console.log(user)
 
   return (
     <div className="flex flex-col space-y-4 md:space-y-6 pb-4">

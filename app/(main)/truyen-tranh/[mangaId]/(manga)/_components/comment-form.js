@@ -83,6 +83,7 @@ export const CommentForm = ({ currentUser, url }) => {
                       <Input
                         disabled={loading}
                         placeholder="Nhập vào bình luận!"
+                        autocomplete="off"
                         {...field}
                       />
                       <Emoji

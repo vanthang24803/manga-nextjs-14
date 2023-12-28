@@ -41,7 +41,7 @@ export default function Home() {
     };
 
     featData();
-  }, [page]);
+  }, []);
 
   useEffect(() => {
     const featData = async () => {
@@ -55,7 +55,7 @@ export default function Home() {
     };
 
     featData();
-  }, [page]);
+  }, []);
 
   const router = useRouter();
 

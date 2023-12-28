@@ -1,8 +1,15 @@
 import Link from "next/link";
 import getChapter from "@/actions/get-chapter";
 import { Button } from "@/components/ui/button";
-import { Images } from "./_components/images";
+
+import { Suspense } from "react";
+import { Spinner } from "@/components/spinner";
+import dynamic from "next/dynamic";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const Images = dynamic(() => import("./_components/images"), {
+  loading: () => <Spinner />,
+});
 
 const Chapter = async ({ params }) => {
   const response = await getChapter(
@@ -74,7 +81,9 @@ const Chapter = async ({ params }) => {
         )}
       </div>
 
-      <Images images={response.images} />
+      <Suspense fallback={<Spinner />}>
+        <Images images={response.images} />
+      </Suspense>
 
       <div className="flex items-center justify-center space-x-4">
         {idPrev != "v1undefined" ? (

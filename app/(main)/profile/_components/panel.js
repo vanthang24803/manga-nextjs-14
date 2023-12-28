@@ -2,10 +2,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useModal } from "@/hooks/use-modal";
 import { Camera, Instagram } from "lucide-react";
 import { useThumbnail } from "@/hooks/use-thumbnail";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const Panel = ({ data }) => {
   const modal = useModal();

@@ -114,7 +114,7 @@ export const Information = ({ data }) => {
                     <FormControl>
                       <div className="flex flex-col space-y-2">
                         <span className="font-medium text-sm">Email</span>
-                        <Input {...field} />
+                        <Input {...field} autocomplete="off" />
                       </div>
                     </FormControl>
                   </FormItem>

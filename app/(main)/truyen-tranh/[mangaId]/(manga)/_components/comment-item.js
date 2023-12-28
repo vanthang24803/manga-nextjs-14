@@ -128,6 +128,7 @@ export const CommentItem = ({ item, currentUser }) => {
                           <Input
                             disabled={loading}
                             placeholder="Nhập vào bình luận!"
+                            autocomplete="off"
                             {...field}
                           />
                           <Emoji
