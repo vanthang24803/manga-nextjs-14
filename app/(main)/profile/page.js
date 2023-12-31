@@ -10,7 +10,7 @@ export async function generateMetadata() {
   const currentUser = await getServerSession(authOptions);
 
   if (!currentUser) {
-    redirect("/");
+    redirect("/login");
   }
 
   const user = await db.user.findUnique({

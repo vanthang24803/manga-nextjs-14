@@ -39,7 +39,7 @@ export default function Login() {
     })
       .then((callback) => {
         if (callback?.error) {
-          toast.error(callback.error);
+          console.log(callback.error);
         }
 
         if (callback?.ok) {

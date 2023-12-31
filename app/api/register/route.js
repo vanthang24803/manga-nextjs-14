@@ -1,6 +1,8 @@
+import { db } from "@/lib/db";
+import { sendVerificationEmail } from "@/lib/mail";
+import { generateVerificationToken } from "@/lib/tokens";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
 
 export async function POST(req) {
   try {
@@ -11,6 +13,16 @@ export async function POST(req) {
     }
 
     const { firstName, lastName, email, password } = body;
+
+    const user = await db.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (user) {
+      return new NextResponse("Email already exists", { status: 401 });
+    }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -24,6 +36,13 @@ export async function POST(req) {
         password: hashedPassword, // Store the hashed password
       },
     });
+
+    const verificationToken = await generateVerificationToken(email);
+
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
 
     return NextResponse.json(newUser, { status: 200 });
   } catch (error) {

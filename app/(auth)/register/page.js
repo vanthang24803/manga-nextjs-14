@@ -12,6 +12,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import toast from "react-hot-toast";
+import { ErrorMessage } from "@/components/error-message";
+import { SuccessMessage } from "@/components/success-message";
+import { Lato } from "next/font/google";
 
 const formSchema = z.object({
   firstName: z.string().min(1),
@@ -23,6 +26,8 @@ const formSchema = z.object({
 export default function Register() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -44,19 +49,22 @@ export default function Register() {
       });
 
       if (response.status == 200) {
+        setError("");
         toast.success("Thành công");
-        router.push("/login");
-        setLoading(false);
-      } else {
-        toast.error("Thất bại");
+        setSuccess("Xác thực email của bạn!");
         setLoading(false);
       }
     } catch (error) {
+      setSuccess("");
       setLoading(false);
-      console.log(error);
+      if (error.response.status) {
+        setError("Email đã được đăng ký!");
+      } else {
+        setError("Đã có lỗi xảy ra");
+      }
     }
   };
-  
+
   return (
     <div className="md:w-[400px] w-[360px] py-4 px-6 bg-white/90 rounded-lg  flex flex-col space-y-5">
       <Logo />
@@ -80,7 +88,7 @@ export default function Register() {
                   <FormControl>
                     <div className="flex flex-col space-y-1">
                       <span className="font-medium text-sm">First name</span>
-                      <Input {...field} />
+                      <Input {...field} autoComplete="off" />
                     </div>
                   </FormControl>
                 </FormItem>
@@ -95,7 +103,7 @@ export default function Register() {
                   <FormControl>
                     <div className="flex flex-col space-y-1">
                       <span className="font-medium text-sm">Last name</span>
-                      <Input {...field} />
+                      <Input {...field} autoComplete="off" />
                     </div>
                   </FormControl>
                 </FormItem>
@@ -110,7 +118,7 @@ export default function Register() {
                 <FormControl>
                   <div className="flex flex-col space-y-1">
                     <span className="font-medium text-sm">Email address</span>
-                    <Input {...field} />
+                    <Input {...field} autoComplete="off" />
                   </div>
                 </FormControl>
               </FormItem>
@@ -125,16 +133,20 @@ export default function Register() {
                 <FormControl>
                   <div className="flex flex-col space-y-1">
                     <span className="font-medium text-sm">Password</span>
-                    <Input type="password" {...field} />
+                    <Input type="password" {...field} autoComplete="off" />
                   </div>
                 </FormControl>
               </FormItem>
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={loading}>
+            Submit
+          </Button>
         </form>
       </FormProvider>
+      {error != "" && <ErrorMessage message={error} />}
+      {success != "" && <SuccessMessage message={success} />}
 
       <div className="flex items-center space-x-2 text-sm">
         <span className="mt-4 text-neutral-600">Have an account?</span>
