@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
-// import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -19,7 +18,7 @@ export async function POST(req) {
     });
 
     if (!existingUser) {
-      return new NextResponse("User not found", { status: 400 });
+      return new NextResponse("User not found", { status: 404 });
     }
 
     if (!existingUser.emailVerified) {

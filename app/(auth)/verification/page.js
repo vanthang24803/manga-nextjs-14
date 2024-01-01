@@ -2,16 +2,14 @@
 
 import { Logo } from "@/components/logo";
 import { Spinner } from "@/components/spinner";
-import { Button } from "@/components/ui/button";
 import { useCallback, useEffect, useState } from "react";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { newVerification } from "@/actions/new-verification";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 
 export default function Verification() {
-  const router = useRouter();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -56,7 +54,6 @@ export default function Verification() {
           {error == "" && <SuccessMessage message={success} />}
           {error != "" && <ErrorMessage message={error} />}
         </div>
-        <Button onClick={() => router.push("/login")}>Back to Login</Button>
       </div>
     </div>
   );

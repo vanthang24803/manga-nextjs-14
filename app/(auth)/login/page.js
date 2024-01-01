@@ -15,7 +15,7 @@ import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
-import { headers } from "@/next.config";
+import { ErrorMessage } from "@/components/error-message";
 
 const formSchema = z.object({
   email: z.string().min(1),
@@ -27,6 +27,7 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -37,19 +38,8 @@ export default function Login() {
   });
 
   const onSubmit = async (data) => {
-    // signIn("credentials", {
-    //   ...data,
-    //   redirect: false,
-    // }).then((callback) => {
-    //   if (callback?.error) {
-    //     toast.error(callback.error);
-    //   }
-
-    //   if (callback?.ok) {
-    //     router.back();
-    //   }
-    // });
     setSuccess("");
+    setError("");
     setLoading(true);
     try {
       const response = await axios.post(
@@ -77,11 +67,15 @@ export default function Login() {
             router.back();
           }
         });
-      } else if (response.status == 403) {
-        setSuccess("Kiểm tra email của bạn!");
       }
     } catch (error) {
-      console.error(error);
+      if (error.response.status == 404) {
+        setError("Tài khoản không tồn tại");
+      } else if (error.response.status == 403) {
+        setSuccess("Kiểm tra email của bạn!");
+      } else {
+        setError("Kiểm tra lại email hoặc password");
+      }
     } finally {
       setLoading(false);
     }
@@ -157,7 +151,7 @@ export default function Login() {
       </FormProvider>
 
       {success != "" && <SuccessMessage message={success} />}
-
+      {error != "" && <ErrorMessage message={error} />}
       <div className="flex items-center space-x-2 text-sm">
         <span className="mt-4 text-neutral-600">No account?</span>
         <span
