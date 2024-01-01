@@ -88,7 +88,7 @@ export default function Register() {
                   <FormControl>
                     <div className="flex flex-col space-y-1">
                       <span className="font-medium text-sm">First name</span>
-                      <Input {...field} autoComplete="off" />
+                      <Input {...field} autoComplete="off" placeholder="May" />
                     </div>
                   </FormControl>
                 </FormItem>
@@ -103,7 +103,11 @@ export default function Register() {
                   <FormControl>
                     <div className="flex flex-col space-y-1">
                       <span className="font-medium text-sm">Last name</span>
-                      <Input {...field} autoComplete="off" />
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        placeholder="Nguyen"
+                      />
                     </div>
                   </FormControl>
                 </FormItem>
@@ -118,7 +122,11 @@ export default function Register() {
                 <FormControl>
                   <div className="flex flex-col space-y-1">
                     <span className="font-medium text-sm">Email address</span>
-                    <Input {...field} autoComplete="off" />
+                    <Input
+                      {...field}
+                      autoComplete="off"
+                      placeholder="example@mail.com"
+                    />
                   </div>
                 </FormControl>
               </FormItem>

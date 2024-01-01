@@ -64,7 +64,7 @@ export default function Login() {
           }
 
           if (callback?.ok) {
-            router.back();
+            router.push("/");
           }
         });
       }
@@ -122,7 +122,7 @@ export default function Login() {
                 <FormControl>
                   <div className="flex flex-col space-y-1">
                     <span className="font-medium text-sm">Email address</span>
-                    <Input {...field} />
+                    <Input {...field} placeholder="example@mail.com" />
                   </div>
                 </FormControl>
               </FormItem>
@@ -143,6 +143,15 @@ export default function Login() {
               </FormItem>
             )}
           />
+
+          <span
+            className="text-end flex justify-end text-sm  text-primary underline-offset-4 hover:underline hover:cursor-pointer hover:font-medium"
+            size="sm"
+            variant="link"
+            onClick={() => router.push("/forgot-password")}
+          >
+            Forgot password?
+          </span>
 
           <Button type="submit" disabled={loading}>
             Submit
