@@ -55,6 +55,17 @@ export const authOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider !== "credentials") return true;
+
+      const existingUser = await db.user.findUnique({ where: { id: user.id } });
+
+      if (!existingUser?.emailVerified) return false;
+
+      return true;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

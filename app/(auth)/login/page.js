@@ -13,6 +13,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { SuccessMessage } from "@/components/success-message";
+import { headers } from "@/next.config";
 
 const formSchema = z.object({
   email: z.string().min(1),
@@ -23,6 +26,7 @@ export default function Login() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -33,20 +37,54 @@ export default function Login() {
   });
 
   const onSubmit = async (data) => {
-    signIn("credentials", {
-      ...data,
-      redirect: false,
-    })
-      .then((callback) => {
-        if (callback?.error) {
-          console.log(callback.error);
-        }
+    // signIn("credentials", {
+    //   ...data,
+    //   redirect: false,
+    // }).then((callback) => {
+    //   if (callback?.error) {
+    //     toast.error(callback.error);
+    //   }
 
-        if (callback?.ok) {
-          router.back();
+    //   if (callback?.ok) {
+    //     router.back();
+    //   }
+    // });
+    setSuccess("");
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "/api/verify-email",
+        {
+          email: data.email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .finally(() => setLoading(false));
+      );
+
+      if (response.status == 200) {
+        signIn("credentials", {
+          ...data,
+          redirect: false,
+        }).then((callback) => {
+          if (callback?.error) {
+            toast.error(callback.error);
+          }
+
+          if (callback?.ok) {
+            router.back();
+          }
+        });
+      } else if (response.status == 403) {
+        setSuccess("Kiểm tra email của bạn!");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -117,6 +155,8 @@ export default function Login() {
           </Button>
         </form>
       </FormProvider>
+
+      {success != "" && <SuccessMessage message={success} />}
 
       <div className="flex items-center space-x-2 text-sm">
         <span className="mt-4 text-neutral-600">No account?</span>
